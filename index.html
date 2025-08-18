@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Calendar Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .select-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        select {
+            padding: 10px 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            background: white;
+            font-size: 16px;
+            color: #495057;
+            min-width: 300px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #4285f4;
+            box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+        }
+
+        .iframe-container {
+            padding: 20px;
+            height: calc(100vh - 200px);
+            min-height: 600px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: #f8f9fa;
+            border-radius: 8px;
+            color: #6c757d;
+            font-size: 18px;
+            border: 2px dashed #dee2e6;
+        }
+
+        @media (max-width: 768px) {
+            .select-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            select {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .iframe-container {
+                height: calc(100vh - 250px);
+                min-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📅 Google Calendar Viewer</h1>
+            <p>Selecione um calendário para visualizar</p>
+        </div>
+
+        <div class="controls">
+            <div class="select-container">
+                <label for="calendarSelect">Calendário:</label>
+                <select id="calendarSelect">
+                    <option value="">Selecione um calendário</option>
+                    <option value="https://calendar.google.com/calendar/embed?src=c_a948b51143180bd716cfb01458fe97d8016d5223e484ce562c2b3144a24b0b40%40group.calendar.google.com&ctz=America%2FBelem">LAB INOVAÇÃO E TECNOLOGIA EM SAÚDE I</option>
+                    <option value="https://calendar.google.com/calendar/embed?src=c_64cef1eb12c27894875161113814c5fe3923ea64baf3fc795eaeb3bdbfac2cee%40group.calendar.google.com&ctz=America%2FBelem">LAB INOVAÇÃO E TECNOLOGIA EM SAÚDE II</option>
+                    <option value="https://calendar.google.com/calendar/embed?src=c_e56836056779f5b015213719da83f4e22e1b10f42eeabbbf78e2ca43bd1eba5d%40group.calendar.google.com&ctz=America%2FBelem">LAB INOVAÇÃO E TECNOLOGIA EM SAÚDE III</option>
+                    <option value="https://calendar.google.com/calendar/embed?src=c_e35d54b4f57d68bf4c207cd990293442c6844deb0dea3ac340ec27866a314e97%40group.calendar.google.com&ctz=America%2FBelem">LABORATÓRIO DE DESING DE MODA</option>
+                    <option value="https://calendar.google.com/calendar/embed?src=c_00cc9d79ca679a8ff017cf453bd5a7ee6a972dd887addf1d3388c2588d4f5b17%40group.calendar.google.com&ctz=America%2FBelem">LABORATÓRIO DE INFORMÁTICA - CHARLES BABBAGE</option>
+
+
+                    <!-- Adicione seus links aqui -->
+                    <!-- <option value="SEU_LINK_AQUI">Nome do Seu Calendário</option> -->
+                </select>
+            </div>
+        </div>
+
+        <div class="iframe-container">
+            <div id="placeholder" class="placeholder">
+                Selecione um calendário acima para visualizar
+            </div>
+            <iframe id="calendarFrame" style="display: none;"></iframe>
+        </div>
+    </div>
+
+    <script>
+        const select = document.getElementById('calendarSelect');
+        const iframe = document.getElementById('calendarFrame');
+        const placeholder = document.getElementById('placeholder');
+
+        select.addEventListener('change', function() {
+            const selectedValue = this.value;
+            
+            if (selectedValue) {
+                iframe.src = selectedValue;
+                iframe.style.display = 'block';
+                placeholder.style.display = 'none';
+            } else {
+                iframe.style.display = 'none';
+                placeholder.style.display = 'flex';
+                iframe.src = '';
+            }
+        });
+    </script>
+</body>
+</html>
