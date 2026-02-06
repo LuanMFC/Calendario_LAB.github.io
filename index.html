@@ -1,186 +1,395 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horários dos Laboratórios</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Horários dos Laboratórios</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
 
-        .header {
-            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
+    .header {
+      background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
 
-        .header h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
+    .header h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
 
-        .controls {
-            padding: 20px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #e9ecef;
-        }
+    .controls {
+      padding: 20px;
+      background: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
 
-        .select-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            justify-content: center;
-        }
+    .select-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      justify-content: center;
+    }
 
-        label {
-            font-weight: 600;
-            color: #495057;
-        }
+    label {
+      font-weight: 600;
+      color: #495057;
+    }
 
-        select {
-            padding: 10px 15px;
-            border: 2px solid #dee2e6;
-            border-radius: 8px;
-            background: white;
-            font-size: 16px;
-            color: #495057;
-            min-width: 300px;
-            cursor: pointer;
-            transition: border-color 0.3s ease;
-        }
+    select {
+      padding: 10px 15px;
+      border: 2px solid #dee2e6;
+      border-radius: 8px;
+      background: white;
+      font-size: 16px;
+      color: #495057;
+      min-width: 100px;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
 
-        select:focus {
-            outline: none;
-            border-color: #4285f4;
-            box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
-        }
+    select:focus {
+      outline: none;
+      border-color: #4285f4;
+      box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+    }
 
-        .iframe-container {
-            padding: 20px;
-            height: calc(100vh - 200px);
-            min-height: 600px;
-        }
+    .iframe-container {
+      padding: 20px;
+      height: calc(100vh - 200px);
+      min-height: 600px;
+    }
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
 
-        .placeholder {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            background: #f8f9fa;
-            border-radius: 8px;
-            color: #6c757d;
-            font-size: 18px;
-            border: 2px dashed #dee2e6;
-        }
+    .placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      background: #f8f9fa;
+      border-radius: 8px;
+      color: #6c757d;
+      font-size: 18px;
+      border: 2px dashed #dee2e6;
+    }
 
-        @media (max-width: 768px) {
-            .select-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
+    @media (max-width: 768px) {
+      .select-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
 
-            select {
-                min-width: auto;
-                width: 100%;
-            }
+      select {
+        min-width: auto;
+        width: 100%;
+      }
 
-            .iframe-container {
-                height: calc(100vh - 250px);
-                min-height: 400px;
-            }
-        }
-    </style>
+      .iframe-container {
+        height: calc(100vh - 250px);
+        min-height: 400px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Horários dos Laboratórios</h1>
-            <p>Selecione um calendário para visualizar</p>
-        </div>
-
-        <div class="controls">
-            <div class="select-container">
-                <label for="calendarSelect">Calendário:</label>
-                <select id="calendarSelect">
-                    <option value="">Selecione um calendário</option>
-                    <option value="https://calendar.google.com/calendar/embed?src=c_a948b51143180bd716cfb01458fe97d8016d5223e484ce562c2b3144a24b0b40%40group.calendar.google.com&ctz=America%2FBelem">LAB INOVAÇÃO E TECNOLOGIA EM SAÚDE I</option>
-                    <option value="https://calendar.google.com/calendar/embed?src=c_64cef1eb12c27894875161113814c5fe3923ea64baf3fc795eaeb3bdbfac2cee%40group.calendar.google.com&ctz=America%2FBelem">LAB INOVAÇÃO E TECNOLOGIA EM SAÚDE II</option>
-                    <option value="https://calendar.google.com/calendar/embed?src=c_e56836056779f5b015213719da83f4e22e1b10f42eeabbbf78e2ca43bd1eba5d%40group.calendar.google.com&ctz=America%2FBelem">LAB INOVAÇÃO E TECNOLOGIA EM SAÚDE III</option>
-                    <option value="https://calendar.google.com/calendar/embed?src=c_00cc9d79ca679a8ff017cf453bd5a7ee6a972dd887addf1d3388c2588d4f5b17%40group.calendar.google.com&ctz=America%2FBelem">LABORATÓRIO DE INFORMÁTICA - CHARLES BABBAGE</option>
-                    <option value="https://calendar.google.com/calendar/embed?src=c_e35d54b4f57d68bf4c207cd990293442c6844deb0dea3ac340ec27866a314e97%40group.calendar.google.com&ctz=America%2FBelem">LABORATÓRIO DE DESING DE MODA</option>
-                    <option value="https://calendar.google.com/calendar/embed?src=c_6fd39a4cd3e0eb1d7e2f7c6cbf6db0bd5723c5935a46aceb1564c0de332b6eed%40group.calendar.google.com&ctz=America%2FBelem">LABORATÓRIO DE GEOLOGIA E MECÂNICA DOS SOLOS</option>
-                    <option value="https://calendar.google.com/calendar/embed?src=c_2761de4bb5bd3d3143c0c8b07c1c3c466f52660b8679e34076e151e9b32fb87f%40group.calendar.google.com&ctz=America%2FBelem">LABORATÓRIO MULTIDISCIPLINAR DE ENGENHARIA ELÉTRICA</option>
-                    <option value="https://calendar.google.com/calendar/embed?src=c_b44982d78b3e0aec981e911db81d6296691786faefdcc14a1e0a6e52631a6579%40group.calendar.google.com&ctz=America%2FBelem">LABORATÓRIO DE PAISAGEM/CONFORTO</option>
-                    <option value="https://calendar.google.com/calendar/embed?src=c_6d6a23e4705490ac5ac56377e035cad636d44e9a59ed609240cf84184a8a8db0%40group.calendar.google.com&ctz=America%2FBelem">OFICINA DE PLÁSTICA E MODELAGEM</option>
-                    <option value="https://calendar.google.com/calendar/embed?src=c_4564a9e2eaa91882e0c5b2d27e3fada478dd692d3e83f24a4a00757df169fc8d%40group.calendar.google.com&ctz=America%2FBelem">LAB DE ANÁLISE E DESENVOLVIMENTO DE SISTEMAS</option>
-
-                    <!-- <option value="https://calendar.google.com/calendar/embed?src=c_2ab7f6db4b7f68e62d8b7fa45f24bd5ad5f189aea163ddb7e571ac950f5a277d%40group.calendar.google.com&ctz=America%2FBelem">Lan House - Bloco II</option> -->
-                    <option value="https://calendar.google.com/calendar/embed?src=c_3e502958c5f61ac0ae93a8b5869381c170449f4bf50ac1a9c08e43643ce18421%40group.calendar.google.com&ctz=America%2FBelem">METODOLOGIA ATIVA I - BLOCO IV</option>
-                    <option value="https://calendar.google.com/calendar/embed?src=c_1ec549654f918fe4fc26ecc0d9cc799b50657a12ae3b9e4e313e985abb182454%40group.calendar.google.com&ctz=America%2FBelem">LABORATÓRIO DE TECNOLOGIA DAS CONSTRUÇÕES</option>
-                    <option value="https://calendar.google.com/calendar/embed?src=c_ab1ee18bab5f93ef88798e749f73645bbe2528b091438bcba5ed546c75e24b2b%40group.calendar.google.com&ctz=America%2FBelem">LABORATÓRIO DE GEOMÁTICA</option>
-
-
-
-                    <!-- Adicione seus links aqui -->
-                    <!-- <option value="SEU_LINK_AQUI">Nome do Seu Calendário</option> -->
-                </select>
-            </div>
-        </div>
-
-        <div class="iframe-container">
-            <div id="placeholder" class="placeholder">
-                Selecione um calendário acima para visualizar
-            </div>
-            <iframe id="calendarFrame" style="display: none;"></iframe>
-        </div>
+  <div class="container">
+    <div class="header">
+      <h1>Horários dos Laboratórios</h1>
+      <p>Selecione um calendário para visualizar</p>
     </div>
 
-    <script>
-        const select = document.getElementById('calendarSelect');
-        const iframe = document.getElementById('calendarFrame');
-        const placeholder = document.getElementById('placeholder');
+    <div class="controls">
 
-        select.addEventListener('change', function() {
-            const selectedValue = this.value;
-            
-            if (selectedValue) {
-                iframe.src = selectedValue;
-                iframe.style.display = 'block';
-                placeholder.style.display = 'none';
-            } else {
-                iframe.style.display = 'none';
-                placeholder.style.display = 'flex';
-                iframe.src = '';
-            }
-        });
-    </script>
+      <select id="citySelect">
+        <option value="">Selecione um Campus</option>
+        <option value="caxias">Campus Caxias</option>
+        <option value="codo">Campus Codó</option>
+        <option value="presidente">Campus Presidente Dutra</option>
+      </select>
+
+      <div class="select-container">
+        <select id="calendarSelectBloco">
+          <option value="">Selecione o Bloco</option>
+          <option value="1">Bloco 1</option>
+          <option value="2">Bloco 2</option>
+          <option value="3">Bloco 3</option>
+          <option value="4">Bloco 4</option>
+        </select>
+      </div>
+
+      <div class="select-container">
+        <select id="calendarSelect">
+          <option value="">Selecione um calendário</option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/embed?src=c_a948b51143180bd716cfb01458fe97d8016d5223e484ce562c2b3144a24b0b40%40group.calendar.google.com&ctz=America%2FBelem">
+            LAB INOVAÇÃO E TECNOLOGIA EM SAÚDE I
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/embed?src=c_64cef1eb12c27894875161113814c5fe3923ea64baf3fc795eaeb3bdbfac2cee%40group.calendar.google.com&ctz=America%2FBelem">
+            LAB INOVAÇÃO E TECNOLOGIA EM SAÚDE II
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/embed?src=c_e56836056779f5b015213719da83f4e22e1b10f42eeabbbf78e2ca43bd1eba5d%40group.calendar.google.com&ctz=America%2FBelem">
+            LAB INOVAÇÃO E TECNOLOGIA EM SAÚDE III
+          </option>
+          <option data-cidade="caxias" data-bloco="4"
+            value="https://calendar.google.com/calendar/embed?src=c_00cc9d79ca679a8ff017cf453bd5a7ee6a972dd887addf1d3388c2588d4f5b17%40group.calendar.google.com&ctz=America%2FBelem">
+
+            LABORATÓRIO DE INFORMÁTICA - CHARLES BABBAGE
+          </option>
+          <option data-cidade="caxias" data-bloco="4"
+            value="https://calendar.google.com/calendar/embed?src=c_e35d54b4f57d68bf4c207cd990293442c6844deb0dea3ac340ec27866a314e97%40group.calendar.google.com&ctz=America%2FBelem">
+            LABORATÓRIO DE DESING DE MODA
+          </option>
+          <option data-cidade="caxias" data-bloco="4"
+            value="https://calendar.google.com/calendar/embed?src=c_6fd39a4cd3e0eb1d7e2f7c6cbf6db0bd5723c5935a46aceb1564c0de332b6eed%40group.calendar.google.com&ctz=America%2FBelem">
+            LABORATÓRIO DE GEOLOGIA E MECÂNICA DOS SOLOS
+          </option>
+          <option data-cidade="caxias" data-bloco="4"
+            value="https://calendar.google.com/calendar/embed?src=c_2761de4bb5bd3d3143c0c8b07c1c3c466f52660b8679e34076e151e9b32fb87f%40group.calendar.google.com&ctz=America%2FBelem">
+            LABORATÓRIO MULTIDISCIPLINAR DE ENGENHARIA ELÉTRICA
+          </option>
+
+          <option data-cidade="caxias" data-bloco="4"
+            value="https://calendar.google.com/calendar/embed?src=c_b44982d78b3e0aec981e911db81d6296691786faefdcc14a1e0a6e52631a6579%40group.calendar.google.com&ctz=America%2FBelem">
+            LABORATÓRIO DE PAISAGEM/CONFORTO
+          </option>
+          <option data-cidade="caxias" data-bloco="4"
+            value="https://calendar.google.com/calendar/embed?src=c_6d6a23e4705490ac5ac56377e035cad636d44e9a59ed609240cf84184a8a8db0%40group.calendar.google.com&ctz=America%2FBelem">
+            OFICINA DE PLÁSTICA E MODELAGEM
+          </option>
+          <option data-cidade="caxias" data-bloco="3"
+            value="https://calendar.google.com/calendar/embed?src=c_4564a9e2eaa91882e0c5b2d27e3fada478dd692d3e83f24a4a00757df169fc8d%40group.calendar.google.com&ctz=America%2FBelem">
+            LAB DE ANÁLISE E DESENVOLVIMENTO DE SISTEMAS
+          </option>
+
+          <!-- <option data-cidade="caxias" value="https://calendar.google.com/calendar/embed?src=c_2ab7f6db4b7f68e62d8b7fa45f24bd5ad5f189aea163ddb7e571ac950f5a277d%40group.calendar.google.com&ctz=America%2FBelem">Lan House - Bloco II</option> -->
+          <option data-cidade="caxias" data-bloco="4"
+            value="https://calendar.google.com/calendar/embed?src=c_3e502958c5f61ac0ae93a8b5869381c170449f4bf50ac1a9c08e43643ce18421%40group.calendar.google.com&ctz=America%2FBelem">
+            METODOLOGIA ATIVA I - BLOCO IV
+          </option>
+          <option data-cidade="caxias" data-bloco="4"
+            value="https://calendar.google.com/calendar/embed?src=c_1ec549654f918fe4fc26ecc0d9cc799b50657a12ae3b9e4e313e985abb182454%40group.calendar.google.com&ctz=America%2FBelem">
+            LABORATÓRIO DE TECNOLOGIA DAS CONSTRUÇÕES
+          </option>
+          <option data-cidade="caxias" data-bloco="4"
+            value="https://calendar.google.com/calendar/embed?src=c_ab1ee18bab5f93ef88798e749f73645bbe2528b091438bcba5ed546c75e24b2b%40group.calendar.google.com&ctz=America%2FBelem">
+            LABORATÓRIO DE GEOMÁTICA
+          </option>
+
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_df29c2cb0cc4cff72e7330b7f3fff532e23e247eb484bb8a08ac355c3f5351b4@group.calendar.google.com&ctz=America/Belem">
+            LABORATÓRIO DE MICROSCOPIA
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/0/embed?src=c_2761de4bb5bd3d3143c0c8b07c1c3c466f52660b8679e34076e151e9b32fb87f@group.calendar.google.com&ctz=America/Belem">
+            LABORATÓRIO DE MULTIDISCIPLINAR III
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_65311b89373c879f93332eb6bde48aab7aefcfb1d89971cd84ff6d5672de8d8e@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE MULTIDISCIPLINAR II
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_d8ba138513616bbe159d95f90d8c21eef19938aed07978c9b93029d4de8c57a3@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE MULTIDISCIPLINAR III
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_5be91ccf30039377c816f48b297a09ed62ff3ca98dd083f65f8aa72d5928d8d2@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE AVALIAÇÃO NUTRICIONAL
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_61fa9a1c4f88eb47dd1b3d39ce0de11dc9afc030871568dab40c7b7125d9421a@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE BOTÂNICA
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_4c929fddfe7f35cc5a1f786e97804249a9f6277b228308b2687affc1e5eab5bd@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE ANATOMIA
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_f3fa021e414041f62e8bd4e24ab2abe26d8350d1184dd43d3cc8b97e1fe952f0@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE ESTÉTICA
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_80259415266fd652f2b4836d118828a6b2c94ad7552ffa3f32d8a41cbad5c466@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE ESTRATÉGIA E SAÚDE DA FAMÍLIA (E.S.F) / VACINAÇÃO
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_ccc0d3804a6e870d4c2625b696577c702f9276172b98f30a94b398c9f2b302b5@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE FISIOTERAPIA
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_6c0fc7027b47a3a6d0f635bb982aeb949ba2491328c39457d14a9a164ee84309@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE LEITURA/ INTERPRETAÇÃO RADIOLÓGICA
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_55d21d6666e7aadc4b74688f33e3b297a5cd0e7f79e2432b0c93c65fb91bc921@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE MORFOFUCIONAL
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_4ef18742ef743576e544e3fef947f9903e8747f0c151efa32a20e44f4664d186@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE OSCE
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_cb98adb3b1f986a20eec849adcece788f30330d57c8405f2aff913eace0c8b9a@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE RADIOLOGIA
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_8e5b5514ae7143de4500ec0a2d51368ac55faac24824ccc0ce990d69106a8d59@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE SIMULAÇÃO ODONTOLÓGICA
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_16d9f2246a9fbd647ba886b1e0309e9da07cbdb8ff491204b9d9f31725747c12@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE SIMULAÇÃO REALÍSTICA ALTA COMPLEXIDADE I
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_4ef18742ef743576e544e3fef947f9903e8747f0c151efa32a20e44f4664d186@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE SIMULAÇÃO REALÍSTICA ALTA COMPLEXIDADE II
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_a1efa9057e5c7b2065f824fd597a36c8ba7f3b22fc9b6f42fa9e58f55036d131@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE TÉCNICA E DIETÉTICA
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_17f0b6c88b8c88e5d3ec3902746cb178670cf8e3195412bafdf1f14b7a4c0046@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE SIMULAÇÃO REALÍSTICA BAIXA MEDIA COMPLEXIDADE I
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_cb98adb3b1f986a20eec849adcece788f30330d57c8405f2aff913eace0c8b9a@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE RADIOLOGIA
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_832237dc0ef5de3bf02599697aa7cd2907ed2e55fecd266f1e89baeec53a0a78@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            SALA DE PREPARO 2
+          </option>
+
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_508a20afc2f946e3385e64e09973c4666b79d31c9de4cb51e6cc2ed6cd88df08@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE HABILIDADES CIRÚRGICAS I E II
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_2ed219d47f703c2ba6ab51f59d9ce0ede82a6b0c521a8af80dd49f08cd009223@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE HOME CARE
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_9083d5d076623bc2a4e1ab768823719ecd52bd30827935432e09b073b86de191@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE RADIOLOGIA PERIAPICAL/ CÂMARA CLARA / CÂMARA ESCURA
+          </option>
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_d44c8e3e4af0174254bba329ff2fc02a5dfdf67c12d20c2b113c29937f0514d6@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE SIMULAÇÃO REALÍSTICA BAIXA MEDIA COMPLEXIDADE II
+          </option>
+
+          <option data-cidade="caxias" data-bloco="1"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_17f0b6c88b8c88e5d3ec3902746cb178670cf8e3195412bafdf1f14b7a4c0046@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE SIMULAÇÃO REALÍSTICA BAIXA MEDIA COMPLEXIDADE I
+          </option>
+
+          <option data-cidade="caxias" data-bloco="2"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_c3c9ec68d7b810481cd68df4cde70ce0f6af804a180a7134556a409a1359e7c3@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE AVALIAÇÃO E INTERVENÇÃO EM FISIOTERAPIA
+          </option>
+          <option data-cidade="caxias" data-bloco="2"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_dbd34c261916b0547f385cf9a55ca94642aeb3f458c510bbfe0d3a0de834f9b5@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE HABILIDADES CLÍNICAS
+          </option>
+          <option data-cidade="caxias" data-bloco="2"
+            value="https://calendar.google.com/calendar/u/1/embed?src=c_88e40163986cd571d13af8f212e1f02c9db387fb9d3cd14d2ab8c30980ac603a@group.calendar.google.com&ctz=America/Belem&csspa=1">
+            LABORATÓRIO DE TERAPIA OCUPACIONAL
+          </option>
+
+
+        </select>
+      </div>
+    </div>
+
+    <div class="iframe-container">
+      <div id="placeholder" class="placeholder">
+        Selecione um calendário acima para visualizar
+      </div>
+      <iframe id="calendarFrame" style="display: none"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const citySelect = document.getElementById("citySelect");
+  const blocoSelect = document.getElementById("calendarSelectBloco");
+  const calendarSelect = document.getElementById("calendarSelect");
+  const iframe = document.getElementById("calendarFrame");
+  const placeholder = document.getElementById("placeholder");
+
+  function filtrarCalendarios() {
+    const cidade = citySelect.value;
+    const bloco = blocoSelect.value;
+
+    Array.from(calendarSelect.options).forEach(option => {
+      if (!option.dataset.cidade || !option.dataset.bloco) {
+        option.hidden = false;
+        return;
+      }
+
+      option.hidden =
+        option.dataset.cidade !== cidade ||
+        option.dataset.bloco !== bloco;
+    });
+
+    calendarSelect.value = "";
+    iframe.style.display = "none";
+    placeholder.style.display = "flex";
+    iframe.src = "";
+  }
+
+  citySelect.addEventListener("change", filtrarCalendarios);
+  blocoSelect.addEventListener("change", filtrarCalendarios);
+
+  // seu código do iframe
+  calendarSelect.addEventListener("change", function () {
+    const selectedValue = this.value;
+
+    if (selectedValue) {
+      iframe.src = selectedValue;
+      iframe.style.display = "block";
+      placeholder.style.display = "none";
+    } else {
+      iframe.style.display = "none";
+      placeholder.style.display = "flex";
+      iframe.src = "";
+    }
+  });
+  </script>
 </body>
+
 </html>
